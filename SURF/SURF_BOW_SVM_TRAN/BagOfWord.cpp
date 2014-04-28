@@ -7,7 +7,7 @@ BagOfWord::BagOfWord()
 {
 
     FileProcess fileProcess;
-    string dir_path="E:\\picture\\";
+    string dir_path="picture\\";
     vector<string> folderlist=fileProcess.ReadFolderName();
     vector<KeyPoint> keyPoints;
     Mat descriptors;
@@ -32,7 +32,7 @@ BagOfWord::BagOfWord()
             samples[folder].push_back(descriptors);
         }
     }
-    FileStorage fin ("E:\\picture\\samples.yml",FileStorage::WRITE);
+    FileStorage fin ("picture\\samples.yml",FileStorage::WRITE);
     map<string,Mat>::iterator iter;
     for(iter=samples.begin();iter!=samples.end();++iter)
     {

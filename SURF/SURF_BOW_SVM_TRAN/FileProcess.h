@@ -15,7 +15,6 @@ class FileProcess
 public:
     FileProcess();
     vector<string> ReadFolderName();
-    vector<string> ReadLableName();
     vector<string> ReadAllImage(string dir_path);
     void UnifyImageSize(cv::Mat& image);
 

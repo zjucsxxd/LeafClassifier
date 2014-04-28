@@ -4,19 +4,20 @@
 #include<QGraphicsView>
 #include<QGraphicsScene>
 #include<QGraphicsPixmapItem>
-#include<QPixmap>
-#include<QString>
+#include <opencv2/ml/ml.hpp>
 #include "opencv2/opencv.hpp"
 #include "opencv2/core/core.hpp"
-#include "opencv2/features2d/features2d.hpp"
+#include <opencv2/contrib/contrib.hpp>
 #include "opencv2/highgui/highgui.hpp"
 #include "opencv2/nonfree/features2d.hpp"
-#include <opencv2/contrib/contrib.hpp>
-#include <opencv2/ml/ml.hpp>
-#include <fstream>
+#include "opencv2/features2d/features2d.hpp"
+#include <list>
 #include <vector>
-#include<iostream>
-#include<list>
+#include <fstream>
+#include <iostream>
+#include <QPixmap>
+#include <QString>
+
 
 using namespace cv;
 using namespace std;
@@ -28,19 +29,14 @@ MyWidget::MyWidget(QWidget *parent ) :
     this->setGeometry(350,100,480,480);
     button1=new QPushButton("显图",this);
     button2=new QPushButton("识别",this);
- //   button3=new QPushButton("正确",this);
- //   button4=new QPushButton("修正",this);
     button1->setGeometry(0,0,120,50);
     button2->setGeometry(0,50,120,50);
-//    button3->setGeometry(0,100,120,50);
-//    button4->setGeometry(0,150,120,50);
-
     scene = new QGraphicsScene;
     view = new QGraphicsView(scene,this);
     item = new QGraphicsPixmapItem;
     view->setScene(scene);
     view->setGeometry(120,50,360,400);
-    item->setPixmap(QPixmap("E:\\picture\\logo.jpg"));
+    item->setPixmap(QPixmap("picture\\logo.jpg"));
     scene->addItem(item);
     view->show();
 
@@ -50,12 +46,9 @@ MyWidget::MyWidget(QWidget *parent ) :
     text2->setGeometry(120,430,360,50);
 
     Mat vocabulary;
-    FileStorage fs("E:\\picture\\vocabulary.yml", FileStorage::READ);
+    FileStorage fs("picture\\vocabulary.yml", FileStorage::READ);
     fs["vocabulary"] >> vocabulary;
     fs.release();
-//    extractor=new Ptr<DescriptorExtractor>(new SurfDescriptorExtractor);
-//    matcher=new Ptr<DescriptorMatcher>(new FlannBasedMatcher);
-//    bowExtractor=new BOWImgDescriptorExtractor(extractor, matcher);
     bowExtractor.setVocabulary(vocabulary);
     connect(button1,SIGNAL(clicked()),this,SLOT(bt1_clicked()));
     connect(button2,SIGNAL(clicked()),this,SLOT(bt2_clicked()));
@@ -74,13 +67,11 @@ void MyWidget::bt1_clicked()
 }
 void MyWidget::bt2_clicked()
 {
-    //--读取图片
+
     QString str=text1->text();
-    //  text1->setText("");
     string path=str.toStdString();
     cout<<path<<endl;
     Mat img=imread(path);
-    //--统一图片大小
     this->UnifyImageSize(img);
     cout<<img.cols<<endl;
     //计算输入图片的bag of words
@@ -90,7 +81,7 @@ void MyWidget::bt2_clicked()
     detector->detect( img, keypoints );
     bowExtractor.compute(img,keypoints,descriptors);
     //读取种类列表
-    ifstream fin("E:\\picture\\category.list");
+    ifstream fin("picture\\category.list");
     vector <string> folderlist;
     while(!fin.eof())
     {
@@ -103,7 +94,7 @@ void MyWidget::bt2_clicked()
     for(int i=0;i<folderlist.size();i++)
     {
         string folder=folderlist[i];
-        string classifier_name="E:\\picture\\SVM_classifier_"+folder+".yml";
+        string classifier_name="picture\\SVM_classifier_"+folder+".yml";
         cout<<classifier_name<<endl;
         CvSVM mySVM;
         mySVM.load(classifier_name.c_str());
@@ -129,8 +120,8 @@ MyWidget::~MyWidget()
 {
     delete button1;
     delete button2;
-  //  delete button3;
     delete text1;
+
 }
 void MyWidget::UnifyImageSize(Mat &image)
 {

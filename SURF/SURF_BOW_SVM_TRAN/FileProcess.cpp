@@ -4,31 +4,15 @@ FileProcess::FileProcess()
 }
 vector<string>FileProcess::ReadFolderName()
 {
-
-    ifstream fin("E:\\picture\\category.list");
+    ifstream fin("picture\\category.list");
     vector <string> folderlist;
     while(!fin.eof())
     {
         string folder;
         fin>>folder;
         folderlist.push_back(folder);
-
     }
     return folderlist;
-
-}
-vector <string>FileProcess::ReadLableName()
-{
-    ifstream fin("E:\\picture\\category.list");
-    vector <string> lablelist;
-    while(!fin.eof())
-    {
-        string lable;
-        fin>>lable;
-        lablelist.push_back(lable);
-
-    }
-    return lablelist;
 }
 
 vector <string>FileProcess::ReadAllImage(string dir_path)
@@ -47,11 +31,9 @@ vector <string>FileProcess::ReadAllImage(string dir_path)
             string imgName=imgNames[j];
             string fullName=path+"\\"+imgName;
             imgFullNameList.push_back(fullName);
-
         }
     }
     return imgFullNameList;
-
 }
 
 void FileProcess::UnifyImageSize(cv::Mat& image)

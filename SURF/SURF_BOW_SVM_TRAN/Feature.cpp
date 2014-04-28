@@ -13,8 +13,6 @@ void Feature::FeatureExtractAndCluster(string dir_path,string descriptorPath,str
     FileProcess fileProcess;
     imgFullNameList=fileProcess.ReadAllImage(dir_path);
 
-
-
     //--step 2：统一图片大小，并提取图片特征，放入allDescriptors中。
     int minHessian=400;
     SurfFeatureDetector detector(minHessian);
@@ -36,11 +34,12 @@ void Feature::FeatureExtractAndCluster(string dir_path,string descriptorPath,str
     FileStorage fin_Descriptor (descriptorPath,FileStorage::WRITE);
     fin_Descriptor<<"allDescriptors"<<allDescriptors;
     fin_Descriptor.release();
-    BOWKMeansTrainer bowtrainer(500);//样例取的1000
+    BOWKMeansTrainer bowtrainer(500);//聚500类
     bowtrainer.add(allDescriptors);
     Mat vocabulary=bowtrainer.cluster();
     FileStorage fin_Vocabulary(vocabularyPath,FileStorage::WRITE);
     fin_Vocabulary<<"vocabulary"<<vocabulary;
     fin_Vocabulary.release();
+
 
 }

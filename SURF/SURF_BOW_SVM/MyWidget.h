@@ -22,8 +22,6 @@ class MyWidget : public QWidget
 private:
     QPushButton *button1;
     QPushButton *button2;
-  //  QPushButton *button3;
-  //  QPushButton *button4;
     QLineEdit   *text1;
     QLineEdit   *text2;
     QGraphicsScene *scene;

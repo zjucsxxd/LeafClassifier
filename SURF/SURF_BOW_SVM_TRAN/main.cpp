@@ -14,10 +14,10 @@ using namespace std;
 
 int main()
 {
-
-    string dir_path="E:\\picture\\";
-    string descriptorPath="E:\\picture\\allDescriptors.yml";
-    string vocabularyPath="E:\\picture\\vocabulary.yml";
+    //--step 1:提取图片特征并聚类
+    string dir_path="picture\\";
+    string descriptorPath="picture\\allDescriptors.yml";
+    string vocabularyPath="picture\\vocabulary.yml";
     Feature feature;
     feature.FeatureExtractAndCluster(dir_path,descriptorPath,vocabularyPath);
 
@@ -26,9 +26,7 @@ int main()
     FileStorage fs(vocabularyPath, FileStorage::READ);
     fs["vocabulary"] >> vocabulary;
     fs.release();
-
     Ptr<FeatureDetector> detector(new SurfFeatureDetector(400));
- //   Ptr<DescriptorExtractor> extractor(new OpponentColorDescriptorExtractor(Ptr<DescriptorExtractor>(new SurfDescriptorExtractor(400))));
     Ptr<DescriptorExtractor> extractor( new SurfDescriptorExtractor(400));
     Ptr<DescriptorMatcher> matcher(new FlannBasedMatcher());
     BOWImgDescriptorExtractor bowExtractor(extractor, matcher);
@@ -38,9 +36,9 @@ int main()
     BagOfWord bow;
     bow.ConstractBoW(detector,bowExtractor,samples);
 
-
     //--step 3:训练 SVM
     TrainSVM trainSVM;
     trainSVM.Train(samples,bowExtractor.descriptorSize(),bowExtractor.descriptorType());
+    cout<<"~ hah , game over "<<endl;
     return 0;
 }
