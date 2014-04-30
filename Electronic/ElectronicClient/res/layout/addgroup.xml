@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+    
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+
+ > 
+        
+        
+  <!-- This is the top header, contains user's picture etc. -->
+  <!-- Linear 1 begin************************************************* -->
+ <LinearLayout 
+    android:layout_width="fill_parent" 
+    android:layout_height="wrap_content"
+    android:paddingLeft="5dip" 
+    android:paddingRight="5dip" 
+    android:paddingTop="10dip" 
+    android:paddingBottom="10dip" 
+     android:background="@color/blue_start"
+    >
+    <ImageView
+      android:layout_width="80dip"
+      android:layout_height="80dip"
+      android:padding="3dip"
+      android:src="@drawable/blank_boy"
+      android:scaleType="fitCenter"  
+      android:gravity="center_vertical" 
+      android:background="@drawable/photo_background"/>
+      
+    <LinearLayout 
+      android:layout_width="fill_parent" 
+      android:layout_height="wrap_content"
+      android:paddingLeft="10dip"
+      android:orientation="vertical" 
+      >
+        
+      <TextView 
+        android:id="@+id/userDetailsActivityUsername" 
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:text="Username"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:textAppearance="@style/TextViewStyleUserDetailsActivityTitle" />    
+    </LinearLayout> 
+  </LinearLayout>
+  <!-- Linear 1 end************************************************************ -->
+   <!-- Linear 2 begin************************************************************ -->
+  <LinearLayout 
+    android:layout_width="fill_parent" 
+    android:layout_height="8dip"
+    android:background="@color/color_bright_green"
+    />
+   <!-- Linear 2 end************************************************************ -->
+    
+    <!-- Linear 4 begin************************************************************ -->
+    <LinearLayout 
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:paddingLeft="5dip" 
+    android:paddingRight="5dip" 
+    android:paddingTop="10dip" 
+    android:paddingBottom="10dip" 
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+     <TextView 
+     android:layout_width="fill_parent" 
+     android:layout_height="wrap_content" 
+     android:text="组名:" />
+     <EditText 
+     android:id="@+id/add_group_edit" 
+     android:layout_width="fill_parent" 
+     android:layout_height="wrap_content"  />
+      <Button 
+     android:id="@+id/add_group_commit" 
+     android:layout_width="fill_parent" 
+     android:layout_height="wrap_content" 
+     android:layout_marginTop="13.0dip" 
+     android:text="确认添加" />
+      
+    </LinearLayout>
+     <!-- Linear 4 end************************************************************ -->
+</LinearLayout>

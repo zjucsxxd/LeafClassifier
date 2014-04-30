@@ -1,0 +1,57 @@
+<resources>
+
+    <!--
+        Base application theme, dependent on API level. This theme is replaced
+        by AppBaseTheme from res/values-vXX/styles.xml on newer devices.
+    -->
+    <style name="AppBaseTheme" parent="android:Theme.Light">
+        <!--
+            Theme customizations available in newer API levels can go in
+            res/values-vXX/styles.xml, while customizations related to
+            backward-compatibility can go here.
+        -->
+    </style>
+
+    <!-- Application theme. -->
+    <style name="AppTheme" parent="AppBaseTheme">
+        <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+    </style>
+      <style name="TextViewStyleUserDetailsActivityTitle">
+       <item name="android:textSize">20dip</item>
+       <item name="android:textColor">@color/white</item>
+       <item name="android:textStyle">bold</item>
+    </style>
+      <style name="ShowTalkMessage">
+       <item name="android:textSize">20dip</item>
+       <item name="android:textColor">@color/purple_start</item>
+       <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="CommomStyle">
+       <item name="android:textSize">20dip</item>
+       <item name="android:textColor">@color/white</item>
+       <item name="android:textStyle">bold</item>
+    </style>
+    <style name="TextViewStyleUserDetailsActivityLastSeen">
+       <item name="android:textSize">14dip</item>
+       <item name="android:textColor">@color/white</item>
+    </style>
+  
+    <style name="TextViewStyleUserDetailsActivityGeneralTitle">
+      <item name="android:textSize">11dip</item>
+      <item name="android:textColor">@color/white</item>
+      <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="TextViewStyleUserDetailsActivityGeneralValue">
+       <item name="android:textSize">18dip</item>
+       <item name="android:textColor">@color/white</item>
+       <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="TextViewStyleVenueActivityBold">
+       <item name="android:textSize">14dip</item>
+       <item name="android:textStyle">bold</item>
+    </style> 
+
+</resources>

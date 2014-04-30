@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ElectronicClient</string>
+    <string name="action_settings">Settings</string>
+    <string name="login_get_started">Get Started</string>
+    <string name="login_get_started_more">请输入您的的账号和密码</string>
+    <string name="username">账号</string>
+    <string name="password">密码</string>
+    <string name="login_label">登陆</string>
+    <string name="register">注册</string>
+    <string name="allgroup">所有分组</string>
+    <string name="boarddraw">白板画图</string>
+    <string name="boardtalk">好友聊天</string>
+    <string name="boardfile">文件传送</string>
+    <string name="sendmessage">send</string>
+    <string name="addFriend">添加好友</string>
+    <string name="addGroup">添加协同工作组</string>
+    <string name="title_activity_draw">DrawActivity</string>
+    
+</resources>
