@@ -17,18 +17,23 @@ class TrainSVM
 {
 private:
     string dir_path;
+    string category_path;
+
     string descriptorPath;
     string vocabularyPath;
     string samplePath;
+
     vector<string> ReadFolderName();
     vector<string> ReadAllImage();
+    vector<string>classifiers;
     void UnifyImageSize(cv::Mat& image);
 
-public:
-    TrainSVM();
     string FeatureExtractAndCluster();
     void ConstractBoW(Ptr<FeatureDetector> &detector,BOWImgDescriptorExtractor &bowExtractor1, map<string,Mat>& samples);
-    void Train(map<string,Mat>& samples,int cols,int type);
+    vector<string> Train(map<string,Mat>& samples,int cols,int type);
+public:
+    TrainSVM(string dir_path,string category_path, vector<string> classifiers);
+    vector<string> MyTrain();
 
 };
 

@@ -1,17 +1,22 @@
 #include "TrainSVM.h"
 using namespace cv;
 using namespace std;
-TrainSVM::TrainSVM()
-
+TrainSVM::TrainSVM(string dir_path, string category_path, vector<string>classifiers)
 {
-    dir_path="picture\\";
-    descriptorPath="picture\\allDescriptors.yml";
-    vocabularyPath="picture\\vocabulary.yml";
-    samplePath="picture\\samples.yml";
+   this->dir_path=dir_path;
+   this->category_path=category_path;
+   this->classifiers=classifiers;
+
+   descriptorPath="..\\resource\\allDescriptors.yml";
+   vocabularyPath="..\\resource\\vocabulary.yml";
+   samplePath="..\\resource\\samples.yml";
+
 }
 vector<string> TrainSVM::ReadFolderName()
 {
-    ifstream fin("picture\\category.list");
+
+    ifstream fin("..\\resource\\category.list");
+   // ifstream fin(category_path);
     vector <string> folderlist;
     while(!fin.eof())
     {
@@ -85,6 +90,7 @@ string TrainSVM::FeatureExtractAndCluster()
     fin_Vocabulary<<"vocabulary"<<vocabulary;
     fin_Vocabulary.release();
     return vocabularyPath;
+
 }
 void TrainSVM::ConstractBoW(Ptr<FeatureDetector> &detector,BOWImgDescriptorExtractor &bowExtractor, map<string,Mat>& samples)
 {
@@ -122,7 +128,7 @@ void TrainSVM::ConstractBoW(Ptr<FeatureDetector> &detector,BOWImgDescriptorExtra
     }
     fin.release();
 }
-void TrainSVM::Train(map<string, Mat> &samples, int cols, int type)
+vector<string> TrainSVM::Train(map<string, Mat> &samples, int cols, int type)
 {
     map<string,Mat>::iterator iter;
     vector<string>categoryList;
@@ -170,7 +176,31 @@ void TrainSVM::Train(map<string, Mat> &samples, int cols, int type)
         CvSVM SVM;
         SVM.train(sample_32f,lables,Mat(),Mat(),svmParams);
         string classifier_name("SVM_classifier_");
-        classifier_name="picture\\"+classifier_name+category+".yml";
+        classifier_name=dir_path+classifier_name+category+".yml";
+        classifiers.push_back(classifier_name);
         SVM.save(classifier_name.c_str());
     }
+    return classifiers;
+}
+vector<string> TrainSVM::MyTrain()
+{
+    //--step 1:提取图片特征并聚类
+    string vocabularyPath=this->FeatureExtractAndCluster();
+    //--step 2:读取“vocabulary.yml”，构造bag of word
+    Mat vocabulary;
+    FileStorage fs(vocabularyPath, FileStorage::READ);
+    fs["vocabulary"] >> vocabulary;
+    fs.release();
+    Ptr<FeatureDetector> detector(new SurfFeatureDetector(400));
+    Ptr<DescriptorExtractor> extractor( new SurfDescriptorExtractor(400));
+    Ptr<DescriptorMatcher> matcher(new FlannBasedMatcher());
+    BOWImgDescriptorExtractor bowExtractor(extractor, matcher);
+    bowExtractor.setVocabulary(vocabulary);
+    map<string, Mat> samples;
+    this->ConstractBoW(detector,bowExtractor,samples);
+    //--step 3:训练 SVM
+    vector<string> classifiers=this->Train(samples,bowExtractor.descriptorSize(),bowExtractor.descriptorType());
+    cout<<"~ hah , game over "<<endl;
+    return classifiers;
+
 }

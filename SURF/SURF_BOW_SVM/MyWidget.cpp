@@ -36,7 +36,7 @@ MyWidget::MyWidget(QWidget *parent ) :
     item = new QGraphicsPixmapItem;
     view->setScene(scene);
     view->setGeometry(120,50,360,400);
-    item->setPixmap(QPixmap("picture\\logo.jpg"));
+    item->setPixmap(QPixmap("..\\resource\\logo.jpg"));
     scene->addItem(item);
     view->show();
 
@@ -46,7 +46,7 @@ MyWidget::MyWidget(QWidget *parent ) :
     text2->setGeometry(120,430,360,50);
 
     Mat vocabulary;
-    FileStorage fs("picture\\vocabulary.yml", FileStorage::READ);
+    FileStorage fs("..\\resource\\vocabulary.yml", FileStorage::READ);
     fs["vocabulary"] >> vocabulary;
     fs.release();
     bowExtractor.setVocabulary(vocabulary);
@@ -81,7 +81,7 @@ void MyWidget::bt2_clicked()
     detector->detect( img, keypoints );
     bowExtractor.compute(img,keypoints,descriptors);
     //读取种类列表
-    ifstream fin("picture\\category.list");
+    ifstream fin("..\\resource\\category.list");
     vector <string> folderlist;
     while(!fin.eof())
     {
@@ -94,7 +94,7 @@ void MyWidget::bt2_clicked()
     for(int i=0;i<folderlist.size();i++)
     {
         string folder=folderlist[i];
-        string classifier_name="picture\\SVM_classifier_"+folder+".yml";
+        string classifier_name="..\\resource\\SVM_classifier_"+folder+".yml";
         cout<<classifier_name<<endl;
         CvSVM mySVM;
         mySVM.load(classifier_name.c_str());

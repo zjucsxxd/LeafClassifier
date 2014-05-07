@@ -15,27 +15,13 @@ using namespace cv;
 
 int main()
 {
+    //--指明训练的图片路径，MyTrain()返回的是训练好的分类器路径列表
 
-   //--step 1:提取图片特征并聚类
-   TrainSVM trainSVM;
-   string vocabularyPath=trainSVM.FeatureExtractAndCluster();
-
-   //--step 2:读取“vocabulary.yml”，构造bag of word
-   Mat vocabulary;
-   FileStorage fs(vocabularyPath, FileStorage::READ);
-   fs["vocabulary"] >> vocabulary;
-   fs.release();
-   Ptr<FeatureDetector> detector(new SurfFeatureDetector(400));
-   Ptr<DescriptorExtractor> extractor( new SurfDescriptorExtractor(400));
-   Ptr<DescriptorMatcher> matcher(new FlannBasedMatcher());
-   BOWImgDescriptorExtractor bowExtractor(extractor, matcher);
-   bowExtractor.setVocabulary(vocabulary);
-   map<string, Mat> samples;
-   trainSVM.ConstractBoW(detector,bowExtractor,samples);
-
-   //--step 3:训练 SVM
-   trainSVM.Train(samples,bowExtractor.descriptorSize(),bowExtractor.descriptorType());
-   cout<<"~ hah , game over "<<endl;
-   return 0;
+    string dir_path="..\\resource\\";
+    string category_path="..\\resource\\category.list";
+    vector<string> classifiers;
+    TrainSVM trainSVM(dir_path,category_path,classifiers);
+    trainSVM.MyTrain();
+    return 0;
 }
 
