@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.electronic.view"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="14" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.electronic.view.LoginActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+         <activity
+            android:name="com.electronic.view.RegisterActivity"
+            android:label="@string/register" >
+        </activity>
+         <activity
+            android:name="com.electronic.view.GroupActivity"
+            android:label="@string/allgroup" >
+        </activity>
+         <activity
+            android:name="com.electronic.view.BoardActivity"
+            android:label="@string/boarddraw" >
+        </activity>
+         <activity
+            android:name="com.electronic.view.BoardDrawActivity"
+            android:label="@string/boarddraw" >
+        </activity>
+        <activity
+            android:name="com.electronic.view.BoardTalkActivity"
+            android:label="@string/boardtalk" >
+        </activity>
+        <activity
+            android:name="com.electronic.view.BoardFileActivity"
+            android:label="@string/boardfile" >
+        </activity>
+        <activity
+            android:name="com.electronic.view.BoardFileChooserActivity"
+            android:label="@string/boardfile" >
+        </activity>
+        <activity
+            android:name="com.electronic.view.AddFriendActivity"
+            android:label="@string/addFriend" >
+        </activity>
+        <activity
+            android:name="com.electronic.view.AddGroupActivity"
+            android:label="@string/addGroup" >
+        </activity>
+        
+        
+    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
+</manifest>
