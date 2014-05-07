@@ -9,8 +9,8 @@ SOURCES += main.cpp \
 HEADERS += \
     HogSVM.h
 win32{
-    INCLUDEPATH+=E:\opencv\include
-    LIBS+=-LE:\opencv\lib -lopencv_core248 -lopencv_highgui248 -lopencv_imgproc248 -lopencv_features2d248 -lopencv_nonfree248 -lopencv_flann248 -lopencv_ml248 -lopencv_contrib248
+    INCLUDEPATH+=$(OPENCV_ROOT)\include
+    LIBS+=-L$(OPENCV_ROOT)\lib -lopencv_core248 -lopencv_highgui248 -lopencv_imgproc248 -lopencv_features2d248 -lopencv_nonfree248 -lopencv_flann248 -lopencv_ml248 -lopencv_contrib248
 }
 unix{
     INCLUDEPATH+=$(OPENCV_ROOT)/include
