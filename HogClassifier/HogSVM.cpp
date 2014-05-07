@@ -1,26 +1,26 @@
 #include "HogSVM.h"
 #include<fstream>
 using namespace std;
-
-void HogSVM::loadPics(string dir,string file,vector<string>&pics)
+void HogSVM::loadPics(string file,vector<string>&pics)
 {
-    ifstream txt(dir+"/"+file);
-    while(!txt.eof())
+    Directory dir;
+    string imgPath="";
+    vector<string> picVec=dir.GetListFiles(file,"*.jpg",false);//false表示不遍历子目录
+    for(int i=0;i<picVec.size();i++)
     {
-        string name;
-        txt>>name;
-        pics.push_back(dir+"/"+name);
+        imgPath=file+"/"+picVec[i];
+        pics.push_back(imgPath);
     }
-    txt.close();
 }
-HogSVM::HogSVM(string leafDir,string leafFile,string bgDir,string bgFile,HOGDescriptor *hog)
+HogSVM::HogSVM(string leafFile,string bgFile,HOGDescriptor *hog)
 {
     this->hog=hog;
     vector<string> leaves;
     vector<string> bgs;
-    loadPics(leafDir,leafFile,leaves);
-    loadPics(bgDir,bgFile,bgs);
+    loadPics(leafFile,leaves);
+    loadPics(bgFile,bgs);
     train(leaves,bgs);
+    cout<<"train end"<<endl;
     updateSVMDetector();
 }
 HogSVM::HogSVM(string fileName,HOGDescriptor *hog)
@@ -82,26 +82,18 @@ void HogSVM::train(vector<string>&leaves,
     for(vector<string>::size_type i=0;i<leaves.size();i++)
     {
         Mat img=imread(leaves[i]);
-        Mat gray;
-        if(img.channels()>1)
-            cvtColor(img,gray,CV_BGR2GRAY);
-        else
-            gray=img.clone();
+        cout<<"leaves:"+leaves[i]<<endl;
         vector<float> features;
-        hog->compute(gray,features);
+        hog->compute(img,features);
         for(vector<string>::size_type j=0;j<features.size();j++)
             sampleMat(i,j)=features[j];
     }
     for(vector<string>::size_type i=0;i<bgs.size();i++)
     {
         Mat img=imread(bgs[i]);
-        Mat gray;
-        if(img.channels()>1)
-            cvtColor(img,gray,CV_BGR2GRAY);
-        else
-            gray=img.clone();
+        cout<<"bgs:"+bgs[i]<<endl;
         vector<float> features;
-        hog->compute(gray,features);
+        hog->compute(img,features);
         for(vector<float>::size_type j=0;j<features.size();j++)
             sampleMat(i+leaves.size(),j)=features[j];
     }
@@ -109,7 +101,7 @@ void HogSVM::train(vector<string>&leaves,
     params.svm_type = CvSVM::C_SVC;
     params.kernel_type = CvSVM::LINEAR;
     params.term_crit = cvTermCriteria(CV_TERMCRIT_ITER, 1000, FLT_EPSILON);
-    params.C = 0.01;
+    params.C =1;
     CvSVM::train(sampleMat,labelMat,Mat(),Mat(),params);
 }
 void HogSVM::detect(Mat&img,vector<Rect>& found)
