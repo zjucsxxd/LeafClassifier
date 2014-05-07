@@ -6,11 +6,10 @@
 #include"Samples.h"
 using namespace std;
 using namespace cv;
-void ImgPrePro(string imgname);
 int main()
 {
     Samples samples;
-    samples.ImgPrePro("../resources/f1","../resources/f2");
+    samples.ImgPrePro("../resources/fy1","../resources/fy2");
     cout<<"ok"<<endl;
     return 0;
 }

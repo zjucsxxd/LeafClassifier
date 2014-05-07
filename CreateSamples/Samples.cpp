@@ -2,12 +2,11 @@
 void Samples::LoadPic(string sourceFile, vector<string> &pics)
 {
     Directory dir;
-    //string imgPath="";
+    cout<<sourceFile<<endl;
     vector<string> picVec=dir.GetListFiles(sourceFile,"*.jpg",false);//false表示不遍历子目录
     for(int i=0;i<picVec.size();i++)
     {
-        //imgPath=file+"/"+picVec[i];
-        //pics.push_back(imgPath);
+        cout<<picVec[i]<<endl;
         pics.push_back(picVec[i]);
     }
 }
